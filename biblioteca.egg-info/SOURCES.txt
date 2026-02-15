@@ -1,0 +1,10 @@
+README.md
+setup.py
+biblioteca.egg-info/PKG-INFO
+biblioteca.egg-info/SOURCES.txt
+biblioteca.egg-info/dependency_links.txt
+biblioteca.egg-info/requires.txt
+biblioteca.egg-info/top_level.txt
+tests/test_graph.py
+tests/test_simulation.py
+tests/test_walker.py

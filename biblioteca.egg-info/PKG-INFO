@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: biblioteca
+Version: 0.1.0
+Summary: Simulação de caminhadas quânticas em grafos toroidais
+Author: Seu Nome
+Requires-Dist: numpy
+Requires-Dist: pytest
+Requires-Dist: requests
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: summary
