@@ -37,6 +37,10 @@ probs, det_times = sim.run()
 ## Resultados
 Os resultados são armazenados em arrays NumPy e enviados ao `db.json` via JSON Server.
 
+Além disso, dois arquivos CSV são gerados para facilitar a análise:
+- **probs.csv**: contém, em cada linha, as probabilidades de encontrar a partícula em cada vértice do grafo para cada passo da simulação.
+- **det_times.csv**: contém, em cada linha, o tempo de detecção (em que passo a partícula foi detectada) para cada simulação.
+
 ## Testes
 Execute os testes com:
 ```bash
