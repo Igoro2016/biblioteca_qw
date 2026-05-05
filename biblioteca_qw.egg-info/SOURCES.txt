@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+setup.py
+biblioteca_qw.egg-info/PKG-INFO
+biblioteca_qw.egg-info/SOURCES.txt
+biblioteca_qw.egg-info/dependency_links.txt
+biblioteca_qw.egg-info/requires.txt
+biblioteca_qw.egg-info/top_level.txt

@@ -1,14 +1,8 @@
-from setuptools import setup, find_packages
+"""
+setup.py — compatibilidade com pip install -e .
+A configuracao principal esta em pyproject.toml (na raiz do projeto).
+"""
+from setuptools import setup
 
-setup(
-    name='biblioteca',
-    version='0.1.0',
-    description='Simulação de caminhadas quânticas em grafos toroidais',
-    author='Seu Nome',
-    packages=find_packages(),
-    install_requires=[
-        'numpy',
-        'pytest',
-        'requests',
-    ],
-)
+if __name__ == "__main__":
+    setup()

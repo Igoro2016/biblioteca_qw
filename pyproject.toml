@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "biblioteca_qw"
+version = "3.0.0"
+description = "Simulacao de caminhadas quanticas discretas em grafos toroidais n-dimensionais"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Igor", email = "igorgomesdeoliveira@gmail.com" }
+]
+keywords = [
+    "quantum walk",
+    "quantum computing",
+    "graph theory",
+    "toroidal graph",
+    "simulation",
+    "physics",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.21",
+    "requests>=2.26",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+viz = [
+    "matplotlib>=3.5",
+]
+all = [
+    "biblioteca-qw[dev,viz]",
+]
+
+[project.urls]
+Homepage = "https://github.com/Igoro2016/biblioteca_qw"
+Repository = "https://github.com/Igoro2016/biblioteca_qw"
+"Bug Tracker" = "https://github.com/Igoro2016/biblioteca_qw/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["biblioteca_qw*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["biblioteca_qw"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false

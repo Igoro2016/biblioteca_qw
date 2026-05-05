@@ -1,0 +1,12 @@
+numpy>=1.21
+requests>=2.26
+
+[all]
+biblioteca-qw[dev,viz]
+
+[dev]
+pytest>=7.0
+pytest-cov>=4.0
+
+[viz]
+matplotlib>=3.5

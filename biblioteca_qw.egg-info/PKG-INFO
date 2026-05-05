@@ -1,39 +1,37 @@
-<<<<<<< HEAD
-# Biblioteca de Caminhadas Quânticas em Grafos Toroidais
+Metadata-Version: 2.4
+Name: biblioteca_qw
+Version: 3.0.0
+Summary: Simulacao de caminhadas quanticas discretas em grafos toroidais n-dimensionais
+Author-email: Igor <igorgomesdeoliveira@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/Igoro2016/biblioteca_qw
+Project-URL: Repository, https://github.com/Igoro2016/biblioteca_qw
+Project-URL: Bug Tracker, https://github.com/Igoro2016/biblioteca_qw/issues
+Keywords: quantum walk,quantum computing,graph theory,toroidal graph,simulation,physics
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Education
+Classifier: Topic :: Scientific/Engineering :: Physics
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.21
+Requires-Dist: requests>=2.26
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0; extra == "dev"
+Provides-Extra: viz
+Requires-Dist: matplotlib>=3.5; extra == "viz"
+Provides-Extra: all
+Requires-Dist: biblioteca-qw[dev,viz]; extra == "all"
 
-Esta biblioteca permite configurar e executar simulações de caminhadas quânticas em grafos toroidais, com armazenamento de resultados em JSON Server (`db.json`).
-
-## Instalação
-
-1. Clone o repositório.
-2. Instale as dependências:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Instale o JSON Server (Node.js):
-   ```bash
-   npm install -g json-server
-   ```
-4. Inicie o JSON Server:
-   ```bash
-   json-server --watch db.json
-   ```
-
-## Uso
-
-```python
-from biblioteca.simulation import QuantumWalkSimulation
-import numpy as np
-
-# Parâmetros da simulação
-sim = QuantumWalkSimulation(
-    L=3,
-    n=2,
-    num_selfloop=1,
-    t_f=3500,  # 3500 passos
-    weight_value=1.0,
-    marked_vertices=[0, 1]
-=======
 # biblioteca-qw
 
 [![PyPI version](https://img.shields.io/pypi/v/biblioteca-qw.svg)](https://pypi.org/project/biblioteca-qw/)
@@ -264,61 +262,64 @@ from biblioteca_qw import (
     to_json,       # salva probs e det_times em arquivos JSON
     load_csv,      # carrega resultados previamente salvos
     print_summary, # imprime resumo formatado no stdout
->>>>>>> a51f098 (Commit inicial: versão 3.0.0)
 )
 
 probs, det_times = sim.run()
 
-<<<<<<< HEAD
-# Salvar resultados em CSV
-np.savetxt('probs.csv', probs, delimiter=',')
-np.savetxt('det_times.csv', det_times, delimiter=',')
+s = summary(probs, det_times)
+# {'mean_detection': ..., 'max_detection': ..., 'peak_step': ..., ...}
+
+to_csv(probs, det_times, "probs.csv", "det_times.csv")
+to_json(probs, det_times, "probs.json", "det_times.json")
+
+probs2, det2 = load_csv("probs.csv", "det_times.csv")
+
+print_summary(probs, det_times)
+# ==================================================
+#   Resumo da Simulacao - biblioteca_qw
+# ==================================================
+#   Passos totais     : 100
+#   Vertices          : 8
+#   Det. media        : 0.123456
+#   Det. maxima       : 0.456789  (passo 42)
 ```
-
-## Parâmetros
-- `L`: dimensão da grade
-- `n`: número de dimensões
-- `num_selfloop`: self-loops por vértice
-- `t_f`: passos de simulação
-- `weight_value`: peso das arestas
-- `marked_vertices`: lista de vértices marcados
-
-## Resultados
-Os resultados são armazenados em arrays NumPy e enviados ao `db.json` via JSON Server.
-
-Além disso, dois arquivos CSV são gerados para facilitar a análise:
-- **probs.csv**: contém, em cada linha, as probabilidades de encontrar a partícula em cada vértice do grafo para cada passo da simulação.
-- **det_times.csv**: contém, em cada linha, o tempo de detecção (em que passo a partícula foi detectada) para cada simulação.
-
-## Testes
 
 ---
 
+## API de grafos (topologia toroidal)
+
+```python
+from biblioteca_qw import (
+    adjacency_matrix,  # matriz de adjacência do toroidal T(L, n)
+    degree,            # grau uniforme dos vértices
+    laplacian_matrix,  # laplaciano L = D - A
+    spectral_gap,      # gap espectral do laplaciano
+    vertex_list,       # lista de coordenadas de todos os vértices
+)
+
+A  = adjacency_matrix(L=3, n=2)        # shape (9, 9)
+d  = degree(L=3, n=2, num_selfloop=1)  # 5
+sg = spectral_gap(L=4, n=2)            # float
+vl = vertex_list(L=3, n=2)             # [(0,0),(0,1),...,(2,2)]
+```
+
+---
+
+## Modelo matemático
+
+A biblioteca implementa DTQW no espaço de Hilbert `H = H_P ⊗ H_C`,
+onde `H_P` é o espaço de posição e `H_C` o espaço de moeda.
+
+O operador de evolução é `U = S · C_oracle`:
+
+| Componente | Descrição |
+|---|---|
+| `S` | Operador de deslocamento condicional (específico por topologia) |
+| `C_oracle` | Moeda de Grover nos vértices normais; moeda oráculo `(−I)` nos marcados |
+
+| Topologia | Vértices N | Dim. moeda | Operador S |
 |---|---|---|---|
-# biblioteca-qw
-
-[![PyPI version](https://img.shields.io/pypi/v/biblioteca-qw.svg)](https://pypi.org/project/biblioteca-qw/)
-[![Python](https://img.shields.io/pypi/pyversions/biblioteca-qw.svg)](https://pypi.org/project/biblioteca-qw/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Tests](https://github.com/Igoro2016/biblioteca_qw/actions/workflows/ci.yml/badge.svg)](https://github.com/Igoro2016/biblioteca_qw/actions)
-
-Biblioteca Python para **simulação de caminhadas quânticas discretas (DTQW)**
 | Toroidal T(L, n) | Lⁿ | 2n + sl | deslocamento periódico |
-**hipercubo n-dimensional**. Suporta vértices marcados com oráculo de Grover,
-persistência de resultados via JSON Server e exportação CSV/JSON.
-
----
-
-## Instalação
-
-```bash
-pip install biblioteca-qw
-```
-
-### Com dependências de visualização
-
-```bash
-pip install "biblioteca-qw[viz]"
 | Grade n-D | ∏ dims | 2n | reflexão de borda |
 | Grafo geral | \|arestas orientadas\| | — | swap de aresta (Szegedy) |
 | Hipercubo Q_n | 2ⁿ | n + sl | flip de bit |
@@ -343,4 +344,3 @@ pytest tests/test_topologies.py -v
 ## Licença
 
 MIT © Igor (2025)
->>>>>>> a51f098 (Commit inicial: versão 3.0.0)
