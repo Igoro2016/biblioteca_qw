@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Biblioteca de Caminhadas Quânticas em Grafos Toroidais
 
 Esta biblioteca permite configurar e executar simulações de caminhadas quânticas em grafos toroidais, com armazenamento de resultados em JSON Server (`db.json`).
